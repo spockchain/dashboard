@@ -1,6 +1,6 @@
 {
   "name": "eth-netstats",
-  "description": "Ethereum Network Intelligence dashboard",
+  "description": "Spock Official Dashboard",
   "version": "0.0.9",
   "private": true,
   "engines": {
@@ -16,8 +16,9 @@
     "d3": "3.5.6",
     "debug": "2.2.0",
     "express": "4.13.3",
-    "geoip-lite": "1.1.6",
+    "geoip-lite": "^1.3.7",
     "grunt": "^0.4.5",
+    "grunt-cli": "^1.3.2",
     "grunt-contrib-clean": "^0.6.0",
     "grunt-contrib-concat": "^0.5.1",
     "grunt-contrib-copy": "^0.8.0",
@@ -33,19 +34,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/cubedro/eth-netstats.git"
+    "url": "https://github.com/spockchain/dashboard.git"
   },
-  "homepage": "https://github.com/cubedro/eth-netstats",
-  "bugs": {
-    "url": "https://github.com/cubedro/eth-netstats/issues"
-  },
-  "authors": [
-    {
-      "name": "Marian Oancea",
-      "email": "marian@ethdev.com",
-      "url": "https://github.com/cubedro"
-    }
-  ],
+  "homepage": "https://github.com/spockchain/dashboard",
   "license": "LGPL-3.0",
   "devDependencies": {}
 }

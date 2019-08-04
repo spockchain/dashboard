@@ -65,6 +65,8 @@ angular.module('netStatsApp.filters', [])
 		if( !isMining )
 			return $sce.trustAsHtml('<i class="icon-cancel"></i>');
 
+		hashes *= 256 * 1024;
+
 		if(hashes !== 0 && hashes < 1000) {
 			result = hashes;
 			unit = '';
@@ -72,25 +74,25 @@ angular.module('netStatsApp.filters', [])
 
 		if(hashes >= 1000 && hashes < Math.pow(1000, 2)) {
 			result = hashes / 1000;
-			unit = 'K';
+			unit = 'KB';
 		}
 
 		if(hashes >= Math.pow(1000, 2) && hashes < Math.pow(1000, 3)) {
 			result = hashes / Math.pow(1000, 2);
-			unit = 'M';
+			unit = 'MB';
 		}
 
 		if(hashes >= Math.pow(1000, 3) && hashes < Math.pow(1000, 4)) {
 			result = hashes / Math.pow(1000, 3);
-			unit = 'G';
+			unit = 'GB';
 		}
 
 		if(hashes >= Math.pow(1000, 4) && hashes < Math.pow(1000, 5)) {
 			result = hashes / Math.pow(1000, 4);
-			unit = 'T';
+			unit = 'TB';
 		}
 
-		return $sce.trustAsHtml('<span class="small">' + filter('number')(result.toFixed(1)) + ' <span class="small-hash">' + unit + 'H/s</span></span>');
+		return $sce.trustAsHtml('<span class="small">' + filter('number')(result.toFixed(1)) + ' <span class="small-hash">' + unit + '</span></span>');
 	};
 }])
 .filter('totalDifficultyFilter', function() {
@@ -192,7 +194,7 @@ angular.module('netStatsApp.filters', [])
 		if(price.length < 19)
 			return numberFilter(price.substr(0, price.length - 15)) + " finney";
 
-		return numberFilter(price.substr(0, price.length - 18)) + " ether";
+		return numberFilter(price.substr(0, price.length - 18)) + " spock";
 	}
 }])
 .filter('gasFilter', function() {
@@ -347,6 +349,8 @@ angular.module('netStatsApp.filters', [])
 		var result = 0;
 		var unit = 'K';
 
+		hashes *= 256 * 1024;
+
 		if(hashes !== 0 && hashes < 1000) {
 			result = hashes;
 			unit = '';
@@ -354,28 +358,28 @@ angular.module('netStatsApp.filters', [])
 
 		if(hashes >= 1000 && hashes < Math.pow(1000, 2)) {
 			result = hashes / 1000;
-			unit = 'K';
+			unit = 'KB';
 		}
 
 		if(hashes >= Math.pow(1000, 2) && hashes < Math.pow(1000, 3)) {
 			result = hashes / Math.pow(1000, 2);
-			unit = 'M';
+			unit = 'MB';
 		}
 
 		if(hashes >= Math.pow(1000, 3) && hashes < Math.pow(1000, 4)) {
 			result = hashes / Math.pow(1000, 3);
-			unit = 'G';
+			unit = 'GB';
 		}
 
 		if(hashes >= Math.pow(1000, 4) && hashes < Math.pow(1000, 5)) {
 			result = hashes / Math.pow(1000, 4);
-			unit = 'T';
+			unit = 'TB';
 		}
 
 		if( !isMining )
-			return $sce.trustAsHtml(filter('number')(result.toFixed(1)) + ' <span class="small-hash">' + unit + 'H/s</span>');
+			return $sce.trustAsHtml(filter('number')(result.toFixed(1)) + ' <span class="small-hash">' + unit + '</span>');
 
-		return $sce.trustAsHtml('? <span class="small-hash">' + unit + 'KH/s</span>');
+		return $sce.trustAsHtml('? <span class="small-hash">' + unit + '</span>');
 	};
 }])
 .filter('blockPropagationFilter', function() {

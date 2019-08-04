@@ -316,10 +316,24 @@ angular.module('netStatsApp.filters', [])
 		var time = (new Date()).getTime();
 		var diff = Math.floor((time - timestamp)/1000);
 
-		if(diff < 60)
+		if(diff < 60 * 10)
 			return Math.round(diff) + ' s ago';
 
 		return moment.duration(Math.round(diff), 's').humanize() + ' ago';
+	};
+})
+.filter('nextBlockTimeFilter', function() {
+	return function(nextBlockTimestamp) {
+		if(nextBlockTimestamp === 0)
+			return '∞';
+
+		var now = (new Date()).getTime();
+		var diff = Math.floor((nextBlockTimestamp - now)/1000);
+
+		if(diff < 60 * 10)
+			return Math.round(diff) + ' s';
+
+		return moment.duration(Math.round(diff), 's').humanize();
 	};
 })
 .filter('networkHashrateFilter', ['$sce', '$filter', function($sce, filter) {

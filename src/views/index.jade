@@ -163,11 +163,12 @@ block content
             th.th-nodecheck
               i.icon-check-o(data-toggle="tooltip", data-placement="top", title="Pin nodes to display first", ng-click="orderTable(['-stats.block.number', 'stats.block.propagation'], false)")
             th.th-nodename
-              i.icon-node(data-toggle="tooltip", data-placement="top", title="Node name", ng-click="orderTable(['info.name'], false)")
             th.th-nodetype
               i.icon-laptop(data-toggle="tooltip", data-placement="top", title="Node type", ng-click="orderTable(['info.node'], false)")
             th.th-latency
-              i.icon-clock(data-toggle="tooltip", data-placement="top", title="Node latency", ng-click="orderTable(['stats.latency'], false)")
+              i.icon-node(data-toggle="tooltip", data-placement="top", title="Node latency", ng-click="orderTable(['stats.latency'], false)")
+            th.th-latency
+              i.icon-clock(data-toggle="tooltip", data-placement="top", title="Deadline", ng-click="orderTable(['stats.nextBlockTime'], false)")
             th
               i.icon-mining(data-toggle="tooltip", data-placement="top", title="Is mining", ng-click="orderTable(['-stats.hashrate'], false)")
             th
@@ -205,6 +206,8 @@ block content
               div.small(ng-bind-html="node.info.node | nodeVersion")
             td(class="{{ node.readable.latencyClass }}")
               span.small {{ node.readable.latency }}
+            td(class="{{ node.stats.nextBlockTimed | avgTimeClass }}")
+              span.small {{ node.stats.nextBlockTime | nextBlockTimeFilter }}
             td(class="{{ node.stats.mining | hashrateClass : node.stats.active }}", ng-bind-html="node.stats.hashrate | hashrateFilter : node.stats.mining")
             td(class="{{ node.stats.peers | peerClass : node.stats.active }}", style="padding-left: 11px;") {{node.stats.peers}}
             td(style="padding-left: 15px;") {{node.stats.pending}}

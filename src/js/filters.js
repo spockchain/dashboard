@@ -330,8 +330,11 @@ angular.module('netStatsApp.filters', [])
 		var now = (new Date()).getTime();
 		var diff = Math.floor((nextBlockTimestamp - now)/1000);
 
-		if(diff < 60 * 10)
+		if(diff < 0) {
+			return '-';
+		} else if(diff < 60 * 10) {
 			return Math.round(diff) + ' s';
+		}
 
 		return moment.duration(Math.round(diff), 's').humanize();
 	};

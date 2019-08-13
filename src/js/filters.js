@@ -99,7 +99,7 @@ angular.module('netStatsApp.filters', [])
 	return function(hashes) {
 		var result = 0;
 		var unit = '';
-
+		hashes *=  1024;
 		if(hashes !== 0 && hashes < 1000) {
 			result = hashes;
 			unit = '';
@@ -125,7 +125,7 @@ angular.module('netStatsApp.filters', [])
 			unit = 'T';
 		}
 
-		return result.toFixed(2) + ' ' + unit + 'H';
+		return result.toFixed(2) + ' ' + unit + 'B';
 	};
 })
 .filter('nodeVersion', function($sce) {
@@ -318,10 +318,16 @@ angular.module('netStatsApp.filters', [])
 		var time = (new Date()).getTime();
 		var diff = Math.floor((time - timestamp)/1000);
 
-		if(diff < 60 * 10)
+		if(diff < 60 )
 			return Math.round(diff) + ' s ago';
-
-		return moment.duration(Math.round(diff), 's').humanize() + ' ago';
+		var newTimeS=moment.duration(Math.round(diff), 's').seconds();
+		var newTime;
+		if(newTimeS==0){
+			newTime=moment.duration(Math.round(diff), 's').minutes()+" min"+ ' ago';
+		}else{
+			newTime=moment.duration(Math.round(diff), 's').minutes()+" min "+moment.duration(Math.round(diff), 's').seconds()+" s"+ ' ago';
+		}
+		return newTime;
 	};
 })
 .filter('nextBlockTimeFilter', function() {
@@ -452,7 +458,14 @@ angular.module('netStatsApp.filters', [])
 		if(time < 60)
 			return parseFloat(time).toFixed(2) + ' s';
 
-		return moment.duration(Math.round(time), 's').humanize();
+			var newAvgS=moment.duration(Math.round(time), 's').seconds();
+			var newAvgTime;
+			if(newAvgS==0){
+				newAvgTime=moment.duration(Math.round(time), 's').minutes()+" min";
+			}else{
+				newAvgTime=moment.duration(Math.round(time), 's').minutes()+" min "+moment.duration(Math.round(time), 's').seconds()+" s";
+			}
+			return newAvgTime;
 	};
 })
 .filter('avgTimeClass', function() {

@@ -127,7 +127,7 @@ span.small-title span.small {
 .big-info .big-details {
 	display: block;
 	font-weight: 200;
-	font-size: 50px;
+	font-size: 44px;
 	line-height: 55px;
 	letter-spacing: -4px;
 	word-spacing: nowrap !important;
@@ -155,7 +155,7 @@ span.small-title span.small {
 
 .big-info.chart {
 	height: 120px;
-	-webkit-box-sizing: border-box
+	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 }
 
@@ -466,4 +466,12 @@ svg .axis text {
 
 svg .y.axis .tick:first-child text {
 	opacity: 0;
+}
+.toSpock{
+	color: #e89e31!important;
+	padding-left: 8px!important;
+	padding-right: 8px!important;
+}
+.nopadding{
+	padding: 0px!important;
 }

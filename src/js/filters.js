@@ -317,16 +317,28 @@ angular.module('netStatsApp.filters', [])
 		var time = (new Date()).getTime();
 		var diff = Math.floor((time - timestamp)/1000);
 
-		if(diff < 60 )
+		if(diff < 60 ){
 			return Math.round(diff) + ' s ago';
-		var newTimeS=moment.duration(Math.round(diff), 's').seconds();
-		var newTime;
-		if(newTimeS==0){
-			newTime=moment.duration(Math.round(diff), 's').minutes()+" min"+ ' ago';
+		}else if(diff < 3600 ){
+			var newTimeS=moment.duration(Math.round(diff), 's').seconds();
+			var newTime;
+			if(newTimeS==0){
+				newTime=moment.duration(Math.round(diff), 's').minutes()+" min"+ ' ago';
+			}else{
+				newTime=moment.duration(Math.round(diff), 's').minutes()+" min "+moment.duration(Math.round(diff), 's').seconds()+" s"+ ' ago';
+			}
+			return newTime;
 		}else{
-			newTime=moment.duration(Math.round(diff), 's').minutes()+" min "+moment.duration(Math.round(diff), 's').seconds()+" s"+ ' ago';
+			var newH=moment.duration(Math.round(diff), 's').hours();
+			var newM=moment.duration(Math.round(diff), 's').minutes();
+			var newTime2;
+			if(newM==0){
+				newTime2=newH+" h"+' ago';
+			}else{
+				newTime2=newH+" h"+newM+" min "+' ago';
+			}
+			return newTime2;
 		}
-		return newTime;
 	};
 })
 .filter('nextBlockTimeFilter', function() {
@@ -454,9 +466,9 @@ angular.module('netStatsApp.filters', [])
 })
 .filter('avgTimeFilter', function() {
 	return function(time) {
-		if(time < 60)
+		if(time < 60){
 			return parseFloat(time).toFixed(2) + ' s';
-
+		}else if(time < 3600){
 			var newAvgS=moment.duration(Math.round(time), 's').seconds();
 			var newAvgTime;
 			if(newAvgS==0){
@@ -465,6 +477,17 @@ angular.module('netStatsApp.filters', [])
 				newAvgTime=moment.duration(Math.round(time), 's').minutes()+" min "+moment.duration(Math.round(time), 's').seconds()+" s";
 			}
 			return newAvgTime;
+		}else{
+			var newH=moment.duration(Math.round(time), 's').hours();
+			var newM=moment.duration(Math.round(time), 's').minutes();
+			var newTime2;
+			if(newM==0){
+				newTime2=newH+" h"+' ago';
+			}else{
+				newTime2=newH+" h"+newM+" min "+' ago';
+			}
+			return newTime2;
+		}
 	};
 })
 .filter('avgTimeClass', function() {

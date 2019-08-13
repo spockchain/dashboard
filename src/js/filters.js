@@ -99,7 +99,6 @@ angular.module('netStatsApp.filters', [])
 	return function(hashes) {
 		var result = 0;
 		var unit = '';
-		hashes *=  1024;
 		if(hashes !== 0 && hashes < 1000) {
 			result = hashes;
 			unit = '';

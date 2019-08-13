@@ -123,6 +123,21 @@ angular.module('netStatsApp.filters', [])
 			result = hashes / Math.pow(1000, 4);
 			unit = 'T';
 		}
+		if(hashes >= Math.pow(1000, 5) && hashes < Math.pow(1000, 6)) {
+			result = hashes / Math.pow(1000, 5);
+			unit = 'P';
+		  }
+		
+		  if(hashes >= Math.pow(1000, 6) && hashes < Math.pow(1000, 7)) {
+			result = hashes / Math.pow(1000, 6);
+			unit = 'E';
+		  }
+		
+		  if(hashes >= Math.pow(1000, 7) ) {
+			result = hashes / Math.pow(1000, 7);
+			unit = 'Z';
+		  }
+
 
 		return result.toFixed(2) + ' ' + unit + 'B';
 	};
@@ -329,15 +344,7 @@ angular.module('netStatsApp.filters', [])
 			}
 			return newTime;
 		}else{
-			var newH=moment.duration(Math.round(diff), 's').hours();
-			var newM=moment.duration(Math.round(diff), 's').minutes();
-			var newTime2;
-			if(newM==0){
-				newTime2=newH+" h"+' ago';
-			}else{
-				newTime2=newH+" h"+newM+" min "+' ago';
-			}
-			return newTime2;
+			return moment.duration(Math.round(diff), 's').humanize();
 		}
 	};
 })
@@ -366,8 +373,8 @@ angular.module('netStatsApp.filters', [])
 		var result = 0;
 		var unit = 'K';
 
-		hashes *= 256 * 1024;
-
+		hashes =parseFloat(hashes)* 256 * 1024;
+		// hashes *= 256 * 1024;
 		if(hashes !== 0 && hashes < 1000) {
 			result = hashes;
 			unit = '';
@@ -392,9 +399,23 @@ angular.module('netStatsApp.filters', [])
 			result = hashes / Math.pow(1000, 4);
 			unit = 'TB';
 		}
+		if(hashes >= Math.pow(1000, 5) && hashes < Math.pow(1000, 6)) {
+			result = hashes / Math.pow(1000, 5);
+			unit = 'PB';
+		  }
+		
+		  if(hashes >= Math.pow(1000, 6) && hashes < Math.pow(1000, 7)) {
+			result = hashes / Math.pow(1000, 6);
+			unit = 'EB';
+		  }
+		
+		  if(hashes >= Math.pow(1000, 7) ) {
+			result = hashes / Math.pow(1000, 7);
+			unit = 'ZB';
+		  }
 
 		if( !isMining )
-			return $sce.trustAsHtml(filter('number')(result.toFixed(1)) + ' <span class="small-hash">' + unit + '</span>');
+			return $sce.trustAsHtml(filter('number')(result.toFixed(2)) + ' <span class="small-hash">' + unit + '</span>');
 
 		return $sce.trustAsHtml('? <span class="small-hash">' + unit + '</span>');
 	};
@@ -478,15 +499,7 @@ angular.module('netStatsApp.filters', [])
 			}
 			return newAvgTime;
 		}else{
-			var newH=moment.duration(Math.round(time), 's').hours();
-			var newM=moment.duration(Math.round(time), 's').minutes();
-			var newTime2;
-			if(newM==0){
-				newTime2=newH+" h"+' ago';
-			}else{
-				newTime2=newH+" h"+newM+" min "+' ago';
-			}
-			return newTime2;
+			return moment.duration(Math.round(time), 's').humanize();
 		}
 	};
 })
